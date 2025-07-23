@@ -76,7 +76,7 @@ def prediction():
     model = joblib.load("dbs.jl")
     # make prediction
     pred = model.predict([[q]])
-    result = pred[0]  # Extract scalar from 1D array
+    result = float(pred[0])  # Extract scalar from 1D array and ensures it's a plain float
     return(render_template("prediction.html",r=result))
 
 import requests
