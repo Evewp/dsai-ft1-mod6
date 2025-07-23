@@ -75,7 +75,7 @@ def prediction():
     # load model
     model = joblib.load("dbs.jl")
     # make prediction
-    pred = model.predict([[q]])
+    pred = model.predict(q)
     return(render_template("prediction.html",r=pred))
 
 import requests
