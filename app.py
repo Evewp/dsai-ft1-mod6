@@ -4,6 +4,9 @@ from groq import Groq
 
 import os
 
+import sqlite3
+import datetime
+
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 app = Flask(__name__)
@@ -15,7 +18,11 @@ def index():
 @app.route("/main",methods=["GET","POST"])
 def main():
     q = request.form.get("q")
-    # db
+    # db - insert
+    conn = sqlite3.connect('user.db')
+    conn.execute('INSERT INTO user (name, timestamp) VALUES (?, ?)', (q, datetime.datetime.now()))
+    conn.commit()
+    conn.close()
     return(render_template("main.html"))
 
 @app.route("/llama",methods=["GET","POST"])
@@ -102,6 +109,28 @@ def stop_telegram():
     else:
         status = "Failed to stop the telegram bot."
     return(render_template("stop_telegram.html", r=status))
+
+@app.route("/user_log",methods=["GET","POST"])
+def user_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute('''select * from user''')
+    r=""
+    for row in c:
+      print(row)
+      r = r + str(row)
+    c.close()
+    conn.close()
+    return render_template("user_log.html", r=r)
+
+@app.route("/delete_log",methods=["GET","POST"])
+def delete_log():
+    conn = sqlite3.connect('user.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM user')
+    conn.commit()
+    conn.close()
+    return render_template("delete_log.html", message="User log deleted successfully.")    
 
 @app.route("/webhook",methods=["GET","POST"])
 def webhook():
