@@ -83,7 +83,7 @@ import requests
 
 @app.route("/telegram",methods=["GET","POST"])
 def telegram():
-    domain_url = 'https://dsai-ft1-clone-1lt5.onrender.com'
+    domain_url = 'https://dsai-ft1-mod6.onrender.com'
     # The following line is used to delete the existing webhook URL for the Telegram bot
     delete_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/deleteWebhook"
     requests.post(delete_webhook_url, json={"url": domain_url, "drop_pending_updates": True})
@@ -99,7 +99,7 @@ def telegram():
 
 @app.route("/stop_telegram",methods=["GET","POST"])
 def stop_telegram():
-    domain_url = 'https://dsai-ft1-clone-1lt5.onrender.com'
+    domain_url = 'https://dsai-ft1-mod6.onrender.com'
     # The following line is used to delete the existing webhook URL for the Telegram bot
     delete_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/deleteWebhook"
     webhook_response = requests.post(delete_webhook_url, json={"url": domain_url, "drop_pending_updates": True})
