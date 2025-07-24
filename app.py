@@ -131,8 +131,12 @@ def delete_log():
     cursor.execute('DELETE FROM user')
     conn.commit()
     conn.close()
-    return render_template("delete_log.html", message="User log deleted successfully.")    
+    return render_template("delete_log.html", message="User log deleted successfully.")
 
+@app.route("/gradio_sepia",methods=["GET","POST"])
+def degradio_sepia():
+    return render_template("sepia_hf.html")
+   
 @app.route("/webhook",methods=["GET","POST"])
 def webhook():
     # This endpoint will be called by Telegram when a new message is received
