@@ -133,8 +133,8 @@ def delete_log():
     conn.close()
     return render_template("delete_log.html", message="User log deleted successfully.")
 
-@app.route("/gradio_sepia",methods=["GET","POST"])
-def degradio_sepia():
+@app.route("/sepia_hf",methods=["GET","POST"])
+def sepia_hf():
     return render_template("sepia_hf.html")
    
 @app.route("/webhook",methods=["GET","POST"])
